@@ -25,4 +25,10 @@ jobs:
       - name:  WPS linter check 
         run: make lint 
       - name:  pytest check
-        run: make pytest 
+        run: make pytest
+      - name: test and publish code coverage
+        uses: paambaati/codeclimate-action@v2.7.5
+        env:
+          CC_TEST_REPORTER_ID: 76097d8f388f2e429bb76ce548a08eaccdbdca27b1f0c9146457040585246304
+        with:
+          coverageCommand: make cover
