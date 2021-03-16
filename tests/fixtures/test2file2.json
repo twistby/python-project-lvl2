@@ -1,0 +1,32 @@
+{
+    "_id": "605096c4ff2db3b9975f6ae6",
+    "pandex": 11,
+    "guid": "7ed6dafb-bd3b-429e-aece-02e843c32165",
+    "isActive": false,
+    "balance": "$1,988.51",
+    "picture": "http://placehold.it/32x32",
+    "age": 20,
+    "eyeColor": "blue",
+    "name": "Cleveland Olson",
+    "vorname": "Osel",
+    "gender": "male",
+    "company": "ALIX",
+    "phone": "+1 (975) 438-2672",
+    "address": "852 Schaefer Street, Brutus, Nevada, 417-b",
+    "abaut": "Enim id id aliqua pariatur exercitation sunt est veniam irure consequat. Sunt quis veniam qui cillum duis minim magna elit. Esse dolor mollit ad duis voluptate fugiat dolore cillum ad ipsum sunt aute ea laboris. Dolore labore quis cupidatat mollit Lorem adipisicing.\r\n",
+    "registered": "2020-08-29T08:35:57 -02:00",
+    "latitude": -56.271124,
+    "longitude": 26.14557,
+    "tags": [
+      "consequat",
+      "mollit",
+      "deserhunt",
+      "esse",
+      "sint",
+      "ad",
+      "eiusmod"
+    ],
+    "greeding": "Hello, hungry man!",
+    "favoriteFruit": "banana",
+    "favoritecar": "ZAZ"
+}

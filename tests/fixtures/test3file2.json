@@ -1,0 +1,40 @@
+{
+	"random": 2,
+	"random float": 42.697,
+	"bool": false,
+	"month": "may",
+	"date": "2000-05-14",
+	"regEx": "hellooooooooooooooooooooooooooooooooooooooooo to you",
+	"enum": "generator",
+	"firstname": "Hayley",
+	"lastname": "Davidson",
+	"place": "Bloemfontein",
+	"country": "Iceland",
+	"countryCode": "RO",
+	"countryStyle": "pink",
+	"email uses current data": "Hayley.Isidore@gmail.com",
+	"array": [
+		"Ekaterina",
+		"Alameda",
+		"Kathy",
+		"Leanna",
+		"Hope"
+	],
+	"array of objects": [
+		{
+			"index": 0,
+			"index start at 5": 5
+		},
+		{
+			"index": 1,
+			"index start at 5": 6
+		},
+		{
+			"index": 2,
+			"index start at 5": 7
+		}
+	],
+	"Teddie": {
+		"age": 26
+	}
+}

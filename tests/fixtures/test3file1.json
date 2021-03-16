@@ -1,0 +1,39 @@
+{
+	"random": 2,
+	"random float": 42.697,
+	"bool": false,
+	"date": "2000-01-14",
+	"regEx": "helloooooooooooooooooooooooooooooooooooooooooo to you",
+	"enum": "generator",
+	"firstname": "Hayley",
+	"lastname": "Isidore",
+	"city": "Bloemfontein",
+	"country": "Iceland",
+	"countryCode": "RO",
+	"email uses current data": "Hayley.Isidore@gmail.com",
+	"email from expression": "Hayley.Isidore@yopmail.com",
+	"array": [
+		"Ekaterina",
+		"Alameda",
+		"Kathy",
+		"Leanna",
+		"Hope"
+	],
+	"array of objects": [
+		{
+			"index": 0,
+			"index start at 5": 5
+		},
+		{
+			"index": 1,
+			"index start at 5": 6
+		},
+		{
+			"index": 2,
+			"index start at 5": 7
+		}
+	],
+	"Teddie": {
+		"age": 26
+	}
+}
