@@ -2,7 +2,7 @@
 #                         pytest and WPS linter check                   #
 ##########################################################################
 
-name: flake8 Lint
+name: pytest and WPS linter
 
 on: [push, pull_request]
 
