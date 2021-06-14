@@ -1,0 +1,14 @@
+{
+}
+
+
+{
+  choose: 1
+  government: give
+- military: false
++ military: true
+- piano: false
++ piano: true
+  snow: arrow
+  voice: try
+}

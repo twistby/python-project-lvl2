@@ -33,7 +33,7 @@
 - greeting: Hello, Cleveland Olson! You have 10 unread messages.
   guid: 7ed6dafb-bd3b-429e-aece-02e843c32165
 - index: 0
-  isActive: False
+  isActive: false
 - latitude: -56.270124
 + latitude: -56.271124
   longitude: 26.14557
@@ -52,7 +52,7 @@
   Teddie: {'age': 26}
   array: ['Ekaterina', 'Alameda', 'Kathy', 'Leanna', 'Hope']
   array of objects: [{'index': 0, 'index start at 5': 5}, {'index': 1, 'index start at 5': 6}, {'index': 2, 'index start at 5': 7}]
-  bool: False
+  bool: false
 - city: Bloemfontein
   country: Iceland
   countryCode: RO
