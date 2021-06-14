@@ -5,7 +5,7 @@ import pathlib
 import yaml
 
 
-def get_dict_from_file(file_path: str) -> dict:
+def transform_file_to_dict(file_path: str) -> dict:
     """Open file and transform to dict."""
     with open(file_path) as dict_file:
         file_extansion = pathlib.Path(file_path).suffix
@@ -15,7 +15,7 @@ def get_dict_from_file(file_path: str) -> dict:
         elif file_extansion in {'.yml', '.yaml'}:
             dict_from_file = yaml.safe_load(dict_file)
             return {} if dict_from_file is None else dict_from_file
-        raise ValueError('Incorrect data file.')
+        raise ValueError('Incorrect data file: '.join(file_path))
 
 
 def formatting_value(string: str) -> str:
@@ -66,6 +66,6 @@ def generate_dict_diff(first_dict: dict, second_dict: dict) -> str:
 
 def generate_diff(first_path: str, second_path: str) -> str:
     """Generate difference between two files."""
-    first_dict = get_dict_from_file(first_path)
-    second_dict = get_dict_from_file(second_path)
+    first_dict = transform_file_to_dict(first_path)
+    second_dict = transform_file_to_dict(second_path)
     return generate_dict_diff(first_dict, second_dict)
