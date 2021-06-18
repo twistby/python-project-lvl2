@@ -1,71 +1,52 @@
 """Find differencies."""
-import json
-import pathlib
+from typing import Any, Callable
 
-import yaml
-
-
-def transform_file_to_dict(file_path: str) -> dict:
-    """Open file and transform to dict."""
-    with open(file_path) as dict_file:
-        file_extansion = pathlib.Path(file_path).suffix
-        if file_extansion == '.json':
-            dict_from_file = dict(json.load(dict_file))
-            return {} if dict_from_file is None else dict_from_file
-        elif file_extansion in {'.yml', '.yaml'}:
-            dict_from_file = yaml.safe_load(dict_file)
-            return {} if dict_from_file is None else dict_from_file
-        raise ValueError('Incorrect data file: '.join(file_path))
+from gendiff.stylish import stylish
+from gendiff.transformator import transform_file_to_dict
 
 
-def formatting_value(string: str) -> str:
-    """Format boolen to lowercase, None to null, remove control charachters."""
-    string = string.rstrip('\n').rstrip('\r')
-    if string in {'False', 'True'}:
-        string = string.lower()
-    if string == 'None':
-        string = 'null'
-    return string
+def none_to_null(none_value):
+    """Convert None to string null."""
+    if str(none_value) == 'None':
+        return 'null'
+    return none_value
 
 
-def generate_dict_diff(first_dict: dict, second_dict: dict) -> str:
-    """Get difference between two dictionaries."""
-    key_list = list(set(first_dict).union(set(second_dict)))
-    key_list.sort()
+def pack_diff_to_dict(
+    sign: str,
+    first_value: Any,
+    second_value: Any = None,
+) -> dict:
+    """Packs the difference in the dictionary."""
+    return {'sign': sign, 'first_diff': first_value, 'seconf_diff': second_value}
 
-    def get_dif(dict_key: str) -> str:
-        """Get difference between two values of dictionaries."""
+
+def find_diff(first_dict: dict, second_dict: dict) -> dict:
+    """Create dict with differences between two dictionaries."""
+    first_dict_keys = set(first_dict)
+    second_dict_keys = set(second_dict)
+    key_list = list(first_dict_keys.union(second_dict_keys))
+    differences = {}
+    for dict_key in key_list:
         first_value = first_dict.get(dict_key)
         second_value = second_dict.get(dict_key)
-        if first_value is None:
-            return '+ {k}: {v}'.format(
-                k=dict_key,
-                v=formatting_value(str(second_value)),
-            )
-        elif second_value is None:
-            return '- {k}: {v}'.format(
-                k=dict_key,
-                v=formatting_value(str(first_value)),
-            )
-        elif first_value == second_value:
-            return '  {k}: {v}'.format(
-                k=dict_key,
-                v=formatting_value(str(first_value)),
-            )
-        return '- {k}: {v}\n+ {k}: {v2}'.format(
-            k=dict_key,
-            v=formatting_value(str(first_value)),
-            v2=formatting_value(str(second_value)),
-        )
-    return '{start}\n{body}{end}'.format(
-        start='{',
-        body='\n'.join(list(map(get_dif, key_list))),
-        end='\n}' if key_list else '}',
-    )
+        if first_value == second_value:
+            difference = pack_diff_to_dict('  ', first_value)
+        elif dict_key not in first_dict_keys:
+            difference = pack_diff_to_dict('+ ', second_value)
+        elif dict_key not in second_dict_keys:
+            difference = pack_diff_to_dict('- ', first_value)
+        elif isinstance(first_value, dict) and isinstance(second_value, dict):
+            difference = pack_diff_to_dict('  ', find_diff(first_value, second_value))
+        else:
+            difference = pack_diff_to_dict('- ', first_value, none_to_null(second_value))
+        differences[dict_key] = difference
+    return differences
 
 
-def generate_diff(first_path: str, second_path: str) -> str:
+def generate_diff(first_path: str, second_path: str, formater: Callable = stylish) -> str:
     """Generate difference between two files."""
     first_dict = transform_file_to_dict(first_path)
     second_dict = transform_file_to_dict(second_path)
-    return generate_dict_diff(first_dict, second_dict)
+    differences = find_diff(first_dict, second_dict)
+    return formater(differences)

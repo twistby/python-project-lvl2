@@ -1,45 +1,6 @@
 {
-      "_id": "605096c4ff2db3b9975f6ae6",
-      "index": 0,
-      "guid": "7ed6dafb-bd3b-429e-aece-02e843c32165",
-      "isActive": false,
-      "balance": "$2,928.51",
-      "picture": "http://placehold.it/32x32",
-      "age": 40,
-      "eyeColor": "blue",
-      "name": "Cleveland Olson",
-      "gender": "male",
-      "company": "VISUALIX",
-      "email": "clevelandolson@visualix.com",
-      "phone": "+1 (975) 438-2672",
-      "address": "852 Schaefer Street, Brutus, Nevada, 417",
-      "about": "Enim id id aliqua pariatur exercitation sunt est veniam irure consequat. Sunt quis veniam qui cillum duis minim magna elit. Esse dolor mollit ad duis voluptate fugiat dolore cillum ad ipsum sunt aute ea laboris. Dolore labore quis cupidatat mollit Lorem adipisicing.\r\n",
-      "registered": "2020-08-29T08:35:57 -02:00",
-      "latitude": -56.270124,
-      "longitude": 26.14557,
-      "tags": [
-        "consequat",
-        "mollit",
-        "deserunt",
-        "esse",
-        "sint",
-        "ad",
-        "eiusmod"
-      ],
-      "friends": [
-        {
-          "id": 0,
-          "name": "Jeanne Leblanc"
-        },
-        {
-          "id": 1,
-          "name": "Hazel Russell"
-        },
-        {
-          "id": 2,
-          "name": "Clements Barber"
-        }
-      ],
-      "greeting": "Hello, Cleveland Olson! You have 10 unread messages.",
-      "favoriteFruit": "banana"
+  "host": "hexlet.io",
+  "timeout": 50,
+  "proxy": "123.234.53.22",
+  "follow": false
 }

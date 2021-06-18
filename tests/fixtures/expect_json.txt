@@ -3,48 +3,21 @@
 
 
 {
-- color: Red
-  fruit: Apple
-- size: Large
-+ size: Medium
-+ teste: Good
+  - color: Red
+    fruit: Apple
+  - size: Large
+  + size: Medium
+  + teste: Good
 }
 
 
 {
-  _id: 605096c4ff2db3b9975f6ae6
-+ abaut: Enim id id aliqua pariatur exercitation sunt est veniam irure consequat. Sunt quis veniam qui cillum duis minim magna elit. Esse dolor mollit ad duis voluptate fugiat dolore cillum ad ipsum sunt aute ea laboris. Dolore labore quis cupidatat mollit Lorem adipisicing.
-- about: Enim id id aliqua pariatur exercitation sunt est veniam irure consequat. Sunt quis veniam qui cillum duis minim magna elit. Esse dolor mollit ad duis voluptate fugiat dolore cillum ad ipsum sunt aute ea laboris. Dolore labore quis cupidatat mollit Lorem adipisicing.
-- address: 852 Schaefer Street, Brutus, Nevada, 417
-+ address: 852 Schaefer Street, Brutus, Nevada, 417-b
-- age: 40
-+ age: 20
-- balance: $2,928.51
-+ balance: $1,988.51
-- company: VISUALIX
-+ company: ALIX
-- email: clevelandolson@visualix.com
-  eyeColor: blue
-  favoriteFruit: banana
-+ favoritecar: ZAZ
-- friends: [{'id': 0, 'name': 'Jeanne Leblanc'}, {'id': 1, 'name': 'Hazel Russell'}, {'id': 2, 'name': 'Clements Barber'}]
-  gender: male
-+ greeding: Hello, hungry man!
-- greeting: Hello, Cleveland Olson! You have 10 unread messages.
-  guid: 7ed6dafb-bd3b-429e-aece-02e843c32165
-- index: 0
-  isActive: false
-- latitude: -56.270124
-+ latitude: -56.271124
-  longitude: 26.14557
-  name: Cleveland Olson
-+ pandex: 11
-  phone: +1 (975) 438-2672
-  picture: http://placehold.it/32x32
-  registered: 2020-08-29T08:35:57 -02:00
-- tags: ['consequat', 'mollit', 'deserunt', 'esse', 'sint', 'ad', 'eiusmod']
-+ tags: ['consequat', 'mollit', 'deserhunt', 'esse', 'sint', 'ad', 'eiusmod']
-+ vorname: Osel
+  - follow: false
+    host: hexlet.io
+  - proxy: 123.234.53.22
+  - timeout: 50
+  + timeout: 20
+  + verbose: true
 }
 
 

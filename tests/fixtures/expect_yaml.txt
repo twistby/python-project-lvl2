@@ -3,12 +3,29 @@
 
 
 {
-  choose: 1
-  government: give
-- military: false
-+ military: true
-- piano: false
-+ piano: true
-  snow: arrow
-  voice: try
+    choose: 1
+    government: give
+  - military: false
+  + military: true
+  - piano: false
+  + piano: true
+    snow: arrow
+    voice: try
+}
+
+
+{
+    cream: three
+    forest: 924621322.2566912
+    poem: {
+      - related: true
+        sunlight: {
+            grown: coal
+          - laugh: 2053361882.6620066
+          + laugh: 2053361882.5620067
+          - respect: 1452902563
+        }
+      - thin: false
+      + thun: false
+    }
 }
