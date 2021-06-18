@@ -7,3 +7,6 @@
 
 ## Search and output differences between two YAML files
 [![asciicast](https://asciinema.org/a/N0vX4Bh0L82jhVvk0pM9pUrAv.svg)](https://asciinema.org/a/N0vX4Bh0L82jhVvk0pM9pUrAv)
+
+## Search and output differences between two nested structures in JSON files
+[![asciicast](https://asciinema.org/a/421067.svg)](https://asciinema.org/a/421067)
