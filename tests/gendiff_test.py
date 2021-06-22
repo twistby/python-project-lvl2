@@ -24,9 +24,10 @@ def read(file_path: str) -> str:
 json_data = read(get_path('expect_json.txt')).rstrip().split('\n\n\n')
 yaml_data = read(get_path('expect_yaml.txt')).rstrip().split('\n\n\n')
 json_data_default = read(get_path('expect_json_default.txt')).rstrip().split('\n\n\n')
-json_data_plain = read(get_path('expect_json_plain.txt')).rstrip().split('\n\n\n')
+json_data_plain = read(get_path('expect_plain.txt')).rstrip().split('\n\n\n')
 cases_json = list(range(3))
 cases_yaml = list(range(3))
+cases_plain = list(range(2))
 
 
 @pytest.mark.parametrize('case_index', cases_json)
@@ -47,21 +48,10 @@ def test_generate_diff_yaml(case_index: int) -> None:
     assert generate_diff(f1, f2) == expected
 
 
-def test_generate_diff_json_default():
-    """Test generate_diff function with default json files."""
-    f1 = get_path('file1.json')
-    f2 = get_path('file2.json')
-    expected = json_data_default[0]
-    assert generate_diff(f1, f2) == expected
-
-
-def test_generate_diff_json_plain():
+@pytest.mark.parametrize('case_index', cases_plain)
+def test_generate_diff_plain(case_index: int) -> None:
     """Test generate_diff function with plain template."""
-    f1 = get_path('file1.json')
-    f2 = get_path('file2.json')
-    expected = json_data_plain[0]
+    f1 = get_path('testplain{cs}file1.json'.format(cs=case_index))
+    f2 = get_path('testplain{cs}file2.json'.format(cs=case_index))
+    expected = json_data_plain[case_index]
     assert generate_diff(f1, f2, plain) == expected
-
-
-if __name__ == '__main__':
-    test_generate_diff_json_plain()
