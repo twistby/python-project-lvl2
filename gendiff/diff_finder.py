@@ -1,7 +1,7 @@
 """Find differencies."""
 from typing import Any, Callable
 
-from gendiff.stylish import stylish
+from gendiff.templates.stylish import stylish
 from gendiff.token import DIFF_TOKEN
 from gendiff.transformator import transform_file_to_dict
 
