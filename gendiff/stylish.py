@@ -1,6 +1,8 @@
 """Default differences report template."""
 from typing import Any, Tuple
 
+from gendiff.token import DIFF_TOKEN
+
 
 def format_value(string: str) -> str:
     """Format boolen to lowercase, None to null, remove control charachters."""
@@ -22,6 +24,17 @@ def make_diff_string(ident: str, sign: str, key: str, diff_value: str) -> str:
     )
 
 
+def get_sign(diff_kind: str) -> str:
+    """Return difference sign."""
+    signs = {
+        'unchanged': '  ',
+        'added': '+ ',
+        'removed': '- ',
+        'updated': '- ',
+    }
+    return signs[diff_kind]
+
+
 def get_diff_value(difference: Any, indent_counter: int) -> str:
     """Get difference value from dict."""
     if isinstance(difference, dict):
@@ -31,8 +44,10 @@ def get_diff_value(difference: Any, indent_counter: int) -> str:
 
 def get_differences(diff: dict) -> Tuple[Any, Any, str]:
     """Return values depending on whether it is a dict of differences or not."""
-    if 'first_diff' in diff and 'seconf_diff' in diff and 'sign' in diff:
-        return diff['first_diff'], diff['seconf_diff'], '  {s}'.format(s=diff['sign'])
+    if diff.get('token') == DIFF_TOKEN:
+        return diff['first_diff'], diff['seconf_diff'], '  {s}'.format(
+            s=get_sign(diff['diff_kind']),
+        )
     return diff, None, '    '
 
 

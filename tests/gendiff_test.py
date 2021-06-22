@@ -4,6 +4,7 @@ import os
 import pytest
 
 from gendiff.diff_finder import generate_diff
+from gendiff.plain import plain
 
 
 def get_path(file_name: str) -> str:
@@ -23,6 +24,7 @@ def read(file_path: str) -> str:
 json_data = read(get_path('expect_json.txt')).rstrip().split('\n\n\n')
 yaml_data = read(get_path('expect_yaml.txt')).rstrip().split('\n\n\n')
 json_data_default = read(get_path('expect_json_default.txt')).rstrip().split('\n\n\n')
+json_data_plain = read(get_path('expect_json_plain.txt')).rstrip().split('\n\n\n')
 cases_json = list(range(3))
 cases_yaml = list(range(3))
 
@@ -53,5 +55,13 @@ def test_generate_diff_json_default():
     assert generate_diff(f1, f2) == expected
 
 
+def test_generate_diff_json_plain():
+    """Test generate_diff function with plain template."""
+    f1 = get_path('file1.json')
+    f2 = get_path('file2.json')
+    expected = json_data_plain[0]
+    assert generate_diff(f1, f2, plain) == expected
+
+
 if __name__ == '__main__':
-    test_generate_diff_json_default()
+    test_generate_diff_json_plain()
