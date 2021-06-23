@@ -27,9 +27,9 @@ def format_value(some_value: Any) -> str:
 
 def make_diff_dict(
     diff_kind: str,
-    first_value: str,
-    second_value: str = '',
-) -> str:
+    first_value: Any,
+    second_value: Any = '',
+) -> dict:
     """Make difference dict."""
     if diff_kind == 'unchanged':
         return {'diffKind': 'unchanged', 'value': first_value}
@@ -37,11 +37,10 @@ def make_diff_dict(
         return {'diffKind': 'added', 'value': first_value}
     elif diff_kind == 'removed':
         return {'diffKind': 'removed'}
-    elif diff_kind == 'updated':
-        return {'diffKind': 'updated', 'from': first_value, 'to': second_value}
+    return {'diffKind': 'updated', 'from': first_value, 'to': second_value}
 
 
-def to_json(diff_dict: dict) -> str:
+def to_json(diff_dict: Any) -> Any:
     """Prepare diff dict for transformation to JSON."""
     if not isinstance(diff_dict, dict):
         return DIFF_TOKEN
@@ -68,6 +67,6 @@ def to_json(diff_dict: dict) -> str:
     return result_dict
 
 
-def jsonlish(diff_dict: dict) -> Dict[str, Any]:
+def jsonlish(diff_dict: dict) -> Dict[Any, Dict[Any, Any]]:
     """Make JSON report."""
     return json.loads(json.dumps(to_json(diff_dict)))

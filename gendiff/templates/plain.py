@@ -45,7 +45,7 @@ def make_diff_string(
     return "\nProperty '{c}' {t}".format(c=child, t=tail)
 
 
-def plain(diff_dict: dict, parent: str = '') -> str:
+def plain(diff_dict: Any, parent: str = '') -> str:
     """Make default plain report."""
     if not isinstance(diff_dict, dict):
         return DIFF_TOKEN
