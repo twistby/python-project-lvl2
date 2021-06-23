@@ -1,6 +1,7 @@
 """Gendiff script."""
 from gendiff.diff_finder import generate_diff
 from gendiff.parser import get_args
+from gendiff.templates.jsonlish import jsonlish
 from gendiff.templates.plain import plain
 from gendiff.templates.stylish import stylish
 
@@ -10,6 +11,8 @@ def main():
     args = get_args()
     if args.format == 'plain':
         formater = plain
+    elif args.format == 'json':
+        formater = jsonlish
     else:
         formater = stylish
     print(generate_diff(args.first_file, args.second_file, formater))

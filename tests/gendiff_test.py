@@ -1,9 +1,11 @@
 """gendiff test modul."""
+import json
 import os
 
 import pytest
 
 from gendiff.diff_finder import generate_diff
+from gendiff.templates.jsonlish import jsonlish
 from gendiff.templates.plain import plain
 
 
@@ -25,9 +27,12 @@ json_data = read(get_path('expect_json.txt')).rstrip().split('\n\n\n')
 yaml_data = read(get_path('expect_yaml.txt')).rstrip().split('\n\n\n')
 json_data_default = read(get_path('expect_json_default.txt')).rstrip().split('\n\n\n')
 json_data_plain = read(get_path('expect_plain.txt')).rstrip().split('\n\n\n')
+json_data_jsonlish = read(get_path('expect_jsonlish.txt')).rstrip().split('\n\n\n')
+
 cases_json = list(range(3))
 cases_yaml = list(range(3))
 cases_plain = list(range(2))
+cases_jsonlish = list(range(1))
 
 
 @pytest.mark.parametrize('case_index', cases_json)
@@ -55,3 +60,12 @@ def test_generate_diff_plain(case_index: int) -> None:
     f2 = get_path('testplain{cs}file2.json'.format(cs=case_index))
     expected = json_data_plain[case_index]
     assert generate_diff(f1, f2, plain) == expected
+
+
+@pytest.mark.parametrize('case_index', cases_jsonlish)
+def test_generate_diff_jsonlish(case_index: int) -> None:
+    """Test generate_diff function with jsonlish template."""
+    f1 = get_path('testjsonlish{cs}file1.json'.format(cs=case_index))
+    f2 = get_path('testjsonlish{cs}file2.json'.format(cs=case_index))
+    expected = json.loads(json_data_jsonlish[0])
+    assert generate_diff(f1, f2, jsonlish) == expected
