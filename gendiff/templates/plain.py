@@ -57,13 +57,13 @@ def plain(diff_dict: Any, parent: str = '') -> str:
         difference = diff_dict[key]
         if isinstance(difference, dict):
             if difference.get('token') == DIFF_TOKEN:
-                substring = plain(difference['first_diff'], child)
+                substring = plain(difference['first_value'], child)
                 if substring == DIFF_TOKEN:
                     diff_string += make_diff_string(
                         child,
                         difference['diff_kind'],
-                        format_value(difference['first_diff']),
-                        format_value(difference['seconf_diff']),
+                        format_value(difference['first_value']),
+                        format_value(difference['second_value']),
                     )
                 else:
                     diff_string += substring

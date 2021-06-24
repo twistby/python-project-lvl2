@@ -11,5 +11,8 @@
 ## Search and output differences between two nested structures in JSON files
 [![asciicast](https://asciinema.org/a/EvarDEv2NooZsAhJeX6zun2FF.svg)](https://asciinema.org/a/EvarDEv2NooZsAhJeX6zun2FF)
 
-## Search and output differences in plain format between two nested structures in JSON files
+## Search and output differences in plain format between two nested structures
 [![asciicast](https://asciinema.org/a/5TsLzXnab8P5kXoz9GWES6wMl.svg)](https://asciinema.org/a/5TsLzXnab8P5kXoz9GWES6wMl)
+
+## Search and output differences in JSON format between two nested structures
+[![asciicast](https://asciinema.org/a/kk07hI7lSng5uLjgCKwf1vqLY.svg)](https://asciinema.org/a/kk07hI7lSng5uLjgCKwf1vqLY)

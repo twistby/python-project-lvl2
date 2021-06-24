@@ -51,12 +51,12 @@ def to_json(diff_dict: Any) -> Any:
         difference = diff_dict[key]
         if isinstance(difference, dict):
             if difference.get('token') == DIFF_TOKEN:
-                subdict = to_json(difference['first_diff'])
+                subdict = to_json(difference['first_value'])
                 if subdict == DIFF_TOKEN:
                     result_dict[key] = make_diff_dict(
                         difference['diff_kind'],
-                        format_value(difference['first_diff']),
-                        format_value(difference['seconf_diff']),
+                        format_value(difference['first_value']),
+                        format_value(difference['second_value']),
                     )
                 else:
                     result_dict[key] = subdict

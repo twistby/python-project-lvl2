@@ -45,7 +45,7 @@ def get_diff_value(difference: Any, indent_counter: int) -> str:
 def get_differences(diff: dict) -> Tuple[Any, Any, str]:
     """Return values depending on whether it is a dict of differences or not."""
     if diff.get('token') == DIFF_TOKEN:
-        return diff['first_diff'], diff['seconf_diff'], '  {s}'.format(
+        return diff['first_value'], diff['second_value'], '  {s}'.format(
             s=get_sign(diff['diff_kind']),
         )
     return diff, None, '    '

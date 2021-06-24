@@ -6,7 +6,7 @@ from gendiff.token import DIFF_TOKEN
 from gendiff.transformator import transform_file_to_dict
 
 
-def none_to_null(none_value):
+def none_to_null(none_value: Any) -> Any:
     """Convert None to string null."""
     if str(none_value) == 'None':
         return 'null'
@@ -22,8 +22,8 @@ def pack_diff_to_dict(
     return {
         'token': DIFF_TOKEN,
         'diff_kind': diff_kind,
-        'first_diff': first_value,
-        'seconf_diff': second_value,
+        'first_value': first_value,
+        'second_value': second_value,
     }
 
 
