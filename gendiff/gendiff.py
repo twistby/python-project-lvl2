@@ -1,6 +1,4 @@
 """Gendiff script."""
-from typing import Callable
-
 from gendiff.diff_finder import find_diff
 from gendiff.parser import get_args
 from gendiff.templates.jsonlish import jsonlish
