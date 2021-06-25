@@ -44,10 +44,10 @@ def make_diff_string(
             f=first_value,
             t=second_value,
         )
-    return "\nProperty '{c}' {t}".format(c=child, t=tail)
+    return "Property '{c}' {t}\n".format(c=child, t=tail)
 
 
-def plain(diff_dict: Any, parent: str = '') -> str:
+def to_plain(diff_dict: Any, parent: str = '') -> str:
     """Make default plain report."""
     if not isinstance(diff_dict, dict):
         return DIFF_TOKEN
@@ -59,7 +59,7 @@ def plain(diff_dict: Any, parent: str = '') -> str:
         difference = diff_dict[key]
         if isinstance(difference, dict):
             if difference.get('token') == DIFF_TOKEN:
-                substring = plain(difference['first_value'], child)
+                substring = to_plain(difference['first_value'], child)
                 if substring == DIFF_TOKEN:
                     diff_string += make_diff_string(
                         child,
@@ -74,3 +74,8 @@ def plain(diff_dict: Any, parent: str = '') -> str:
         else:
             return DIFF_TOKEN
     return diff_string
+
+
+def plain(diff_dict: Any) -> str:
+    """Make report anfd strip last line break."""
+    return to_plain(diff_dict).rstrip('\n')
