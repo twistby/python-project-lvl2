@@ -4,7 +4,7 @@ import os
 
 import pytest
 
-from gendiff.scripts.gendiff import generate_diff
+from gendiff.gendiff import generate_diff
 from gendiff.templates.jsonlish import jsonlish
 from gendiff.templates.plain import plain
 
