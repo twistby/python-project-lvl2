@@ -1,9 +1,7 @@
 """Find differencies."""
-from typing import Any, Callable
+from typing import Any
 
-from gendiff.templates.stylish import stylish
 from gendiff.token import DIFF_TOKEN
-from gendiff.transformator import transform_file_to_dict
 
 
 def none_to_null(none_value: Any) -> Any:
@@ -55,11 +53,3 @@ def find_diff(first_data: dict, second_data: dict) -> dict:
             )
         differences[dict_key] = difference
     return differences
-
-
-def generate_diff(first_path: str, second_path: str, formater: Callable = stylish) -> str:
-    """Generate difference between two files."""
-    first_dict = transform_file_to_dict(first_path)
-    second_dict = transform_file_to_dict(second_path)
-    differences = find_diff(first_dict, second_dict)
-    return formater(differences)
