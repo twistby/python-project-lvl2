@@ -77,5 +77,5 @@ def to_plain(diff_dict: Any, parent: str = '') -> str:
 
 
 def plain(diff_dict: Any) -> str:
-    """Make report anfd strip last line break."""
+    """Make report and cut off last line break."""
     return to_plain(diff_dict).rstrip('\n')
