@@ -1,6 +1,6 @@
 """JSON report template."""
 import json
-from typing import Any, Dict
+from typing import Any
 
 from gendiff.token import DIFF_TOKEN
 
@@ -8,8 +8,8 @@ from gendiff.token import DIFF_TOKEN
 def iscomplex(some_value: Any) -> bool:
     """Check is value is complex."""
     return (
-        not isinstance(some_value, (str, int, float, complex, bool)) and
-        some_value is not None
+        not isinstance(some_value, (str, int, float, complex, bool))
+        and some_value is not None
     )
 
 
