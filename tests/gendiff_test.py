@@ -5,8 +5,6 @@ import os
 import pytest
 
 from gendiff.gendiff import generate_diff
-from gendiff.templates.jsonlish import jsonlish
-from gendiff.templates.plain import plain
 
 
 def get_path(file_name: str) -> str:

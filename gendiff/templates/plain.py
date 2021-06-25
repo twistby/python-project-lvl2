@@ -1,5 +1,5 @@
 """Plain report template."""
-from typing import Any
+from typing import Any, Union
 
 from gendiff.token import DIFF_TOKEN
 
@@ -12,13 +12,15 @@ def iscomplex(some_value: Any) -> bool:
     )
 
 
-def format_value(some_value: Any) -> str:
+def format_value(some_value: Any) -> Any:
     """Format boolen to lowercase, None to null, remove control charachters."""
     if iscomplex(some_value):
         return '[complex value]'
+    if isinstance(some_value, bool) or some_value in {'False', 'True'}:
+        return '{v}'.format(v=str(some_value).lower())
+    if isinstance(some_value, (int, float, complex)):
+        return some_value
     string = str(some_value).rstrip('\n').rstrip('\r')
-    if string in {'False', 'True'}:
-        return string.lower()
     if string in {'None', 'null'}:
         return 'null'
     return "'{v}'".format(v=string)
