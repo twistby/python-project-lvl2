@@ -67,6 +67,6 @@ def to_json(diff_dict: Any) -> Any:
     return result_dict
 
 
-def jsonlish(diff_dict: dict) -> Dict[Any, Dict[Any, Any]]:
+def jsonlish(diff_dict: dict) -> str:
     """Make JSON report."""
-    return json.loads(json.dumps(to_json(diff_dict)))
+    return json.dumps(to_json(diff_dict))

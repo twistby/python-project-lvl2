@@ -59,7 +59,7 @@ def test_generate_diff_plain(case_index: int) -> None:
     f1 = get_path('testplain{cs}file1.json'.format(cs=case_index))
     f2 = get_path('testplain{cs}file2.json'.format(cs=case_index))
     expected = json_data_plain[case_index]
-    assert generate_diff(f1, f2, plain) == expected
+    assert generate_diff(f1, f2, 'plain') == expected
 
 
 @pytest.mark.parametrize('case_index', cases_jsonlish)
@@ -68,4 +68,4 @@ def test_generate_diff_jsonlish(case_index: int) -> None:
     f1 = get_path('testjsonlish{cs}file1.json'.format(cs=case_index))
     f2 = get_path('testjsonlish{cs}file2.json'.format(cs=case_index))
     expected = json.loads(json_data_jsonlish[0])
-    assert generate_diff(f1, f2, jsonlish) == expected
+    assert json.loads(generate_diff(f1, f2, 'json')) == expected

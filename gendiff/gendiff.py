@@ -12,19 +12,17 @@ from gendiff.transformator import transform_file_to_dict
 def generate_diff(
     first_file: str,
     second_file: str,
-    formater_string: str,
+    formater_string: str = 'stylish',
 ) -> str:
     """Generate differences."""
-    if formater_string == 'plain':
-        formater = plain
-    elif formater_string == 'json':
-        formater = jsonlish
-    else:
-        formater = stylish
     first_dict = transform_file_to_dict(first_file)
     second_dict = transform_file_to_dict(second_file)
     differences = find_diff(first_dict, second_dict)
-    return formater(differences)
+    if formater_string == 'plain':
+        return plain(differences)
+    elif formater_string == 'json':
+        return jsonlish(differences)
+    return stylish(differences)
 
 
 def main():
