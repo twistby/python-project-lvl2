@@ -23,9 +23,13 @@ def read(file_path: str) -> str:
 # expected data
 json_data = read(get_path('expect_json.txt')).rstrip().split('\n\n\n')
 yaml_data = read(get_path('expect_yaml.txt')).rstrip().split('\n\n\n')
-json_data_default = read(get_path('expect_json_default.txt')).rstrip().split('\n\n\n')
+json_data_default = read(get_path('expect_json_default.txt')).rstrip().split(
+    '\n\n\n',
+)
 json_data_plain = read(get_path('expect_plain.txt')).rstrip().split('\n\n\n')
-json_data_jsonlish = read(get_path('expect_jsonlish.txt')).rstrip().split('\n\n\n')
+json_data_jsonlish = read(get_path('expect_jsonlish.txt')).rstrip().split(
+    '\n\n\n',
+)
 
 cases_json = list(range(3))
 cases_yaml = list(range(3))

@@ -52,9 +52,7 @@ def to_plain(diff_dict: Any, parent: str = '') -> str:
     if not isinstance(diff_dict, dict):
         return DIFF_TOKEN
     diff_string = ''
-    key_list = list(set(diff_dict))
-    key_list.sort()
-    for key in key_list:
+    for key in sorted(diff_dict.keys()):
         child = parent + '.{c}'.format(c=key) if parent else key
         difference = diff_dict[key]
         if isinstance(difference, dict):

@@ -57,9 +57,7 @@ def stylish(diff_dict: dict, indent_counter: int = 0) -> str:
     diff_string = '{'
     if not diff_dict:
         return diff_string + '\n{i}{v}'.format(i=indent, v='}')
-    key_list = list(set(diff_dict))
-    key_list.sort()
-    for key in key_list:
+    for key in sorted(diff_dict.keys()):
         difference = diff_dict[key]
         if isinstance(difference, dict):
             first_diff, second_diff, sign = get_differences(difference)

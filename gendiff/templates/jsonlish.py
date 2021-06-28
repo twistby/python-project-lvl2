@@ -47,9 +47,7 @@ def to_json(diff_dict: Any) -> Any:
     if not isinstance(diff_dict, dict):
         return DIFF_TOKEN
     result_dict = {}
-    key_list = list(set(diff_dict))
-    key_list.sort()
-    for key in key_list:
+    for key in sorted(diff_dict.keys()):
         difference = diff_dict[key]
         if isinstance(difference, dict):
             if difference.get('token') == DIFF_TOKEN:
