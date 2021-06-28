@@ -38,17 +38,12 @@ cases_jsonlish = list(range(1))
 
 
 @pytest.mark.parametrize('case_index', cases_json)
-def test_generate_diff_json(case_index: int) -> None:
+def test_generate_diff_json_yaml(case_index: int) -> None:
     """Test generate_diff function with json files."""
     f1 = get_path('test{cs}file1.json'.format(cs=case_index))
     f2 = get_path('test{cs}file2.json'.format(cs=case_index))
     expected = json_data[case_index]
     assert generate_diff(f1, f2) == expected
-
-
-@pytest.mark.parametrize('case_index', cases_yaml)
-def test_generate_diff_yaml(case_index: int) -> None:
-    """Test generate_diff function with yaml files."""
     f1 = get_path('test{cs}file1.yml'.format(cs=case_index))
     f2 = get_path('test{cs}file2.yml'.format(cs=case_index))
     expected = yaml_data[case_index]

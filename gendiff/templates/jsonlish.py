@@ -2,8 +2,6 @@
 import json
 from typing import Any
 
-from gendiff.token import DIFF_TOKEN
-
 
 def iscomplex(some_value: Any) -> bool:
     """Check is value is complex."""
@@ -42,28 +40,38 @@ def make_diff_dict(
     return {'diffKind': 'updated', 'from': first_value, 'to': second_value}
 
 
+def is_difference(diff: dict) -> bool:
+    """Check is the dict is difference dict."""
+    return bool(
+        diff.get('is_differense')
+        and 'first_value' in diff
+        and 'diff_kind' in diff
+        and 'second_value' in diff,
+    )
+
+
 def to_json(diff_dict: Any) -> Any:
     """Prepare diff dict for transformation to JSON."""
     if not isinstance(diff_dict, dict):
-        return DIFF_TOKEN
+        return False
     result_dict = {}
     for key in sorted(diff_dict.keys()):
         difference = diff_dict[key]
         if isinstance(difference, dict):
-            if difference.get('token') == DIFF_TOKEN:
+            if is_difference(difference):
                 subdict = to_json(difference['first_value'])
-                if subdict == DIFF_TOKEN:
+                if subdict:
+                    result_dict[key] = subdict
+                else:
                     result_dict[key] = make_diff_dict(
                         difference['diff_kind'],
                         format_value(difference['first_value']),
                         format_value(difference['second_value']),
                     )
-                else:
-                    result_dict[key] = subdict
             else:
-                return DIFF_TOKEN
+                return False
         else:
-            return DIFF_TOKEN
+            return False
     return result_dict
 
 

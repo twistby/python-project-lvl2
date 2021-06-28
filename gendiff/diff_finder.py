@@ -1,15 +1,6 @@
 """Find differencies."""
 from typing import Any
 
-from gendiff.token import DIFF_TOKEN
-
-
-def none_to_null(none_value: Any) -> Any:
-    """Convert None to string null."""
-    if str(none_value) == 'None':
-        return 'null'
-    return none_value
-
 
 def pack_diff_to_dict(
     diff_kind: str,
@@ -18,7 +9,7 @@ def pack_diff_to_dict(
 ) -> dict:
     """Packs the difference in the dictionary."""
     return {
-        'token': DIFF_TOKEN,
+        'is_differense': True,
         'diff_kind': diff_kind,
         'first_value': first_value,
         'second_value': second_value,

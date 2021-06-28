@@ -1,8 +1,6 @@
 """Plain report template."""
 from typing import Any
 
-from gendiff.token import DIFF_TOKEN
-
 
 def iscomplex(some_value: Any) -> bool:
     """Check is value is complex."""
@@ -47,31 +45,42 @@ def make_diff_string(
     return "Property '{c}' {t}\n".format(c=child, t=tail)
 
 
+def is_difference(diff: dict) -> bool:
+    """Check is the dict is difference dict."""
+    return bool(
+        diff.get('is_differense')
+        and 'first_value' in diff
+        and 'diff_kind' in diff
+        and 'second_value' in diff,
+    )
+
+
 def to_plain(diff_dict: Any, parent: str = '') -> str:
     """Make default plain report."""
     if not isinstance(diff_dict, dict):
-        return DIFF_TOKEN
-    diff_string = ''
+        return "it's not difference"
+    diff_list = []
     for key in sorted(diff_dict.keys()):
-        child = parent + '.{c}'.format(c=key) if parent else key
+        child = '{p}.{c}'.format(p=parent, c=key) if parent else key
         difference = diff_dict[key]
         if isinstance(difference, dict):
-            if difference.get('token') == DIFF_TOKEN:
+            if is_difference(difference):
                 substring = to_plain(difference['first_value'], child)
-                if substring == DIFF_TOKEN:
-                    diff_string += make_diff_string(
+                if substring == "it's not difference":
+                    diff_list.append(make_diff_string(
                         child,
                         difference['diff_kind'],
                         format_value(difference['first_value']),
                         format_value(difference['second_value']),
+                    ),
                     )
                 else:
-                    diff_string += substring
+                    diff_list.append(substring)
             else:
-                return DIFF_TOKEN
+                return "it's not difference"
         else:
-            return DIFF_TOKEN
-    return diff_string
+            return "it's not difference"
+    return ''.join(diff_list)
 
 
 def plain(diff_dict: Any) -> str:

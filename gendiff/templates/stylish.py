@@ -1,8 +1,6 @@
 """Default differences report template."""
 from typing import Any, Tuple
 
-from gendiff.token import DIFF_TOKEN
-
 
 def format_value(string: str) -> str:
     """Format boolen to lowercase, None to null, remove control charachters."""
@@ -44,37 +42,37 @@ def get_diff_value(difference: Any, indent_counter: int) -> str:
 
 def get_differences(diff: dict) -> Tuple[Any, Any, str]:
     """Return values depending on whether it is a dict of differences or not."""
-    if diff.get('token') == DIFF_TOKEN:
-        return diff['first_value'], diff['second_value'], '  {s}'.format(
-            s=get_sign(diff['diff_kind']),
-        )
-    return diff, None, '    '
+    if diff.get('is_differense'):
+        return diff['first_value'], diff['second_value'], diff['diff_kind']
+    return diff, None, 'unchanged'
 
 
 def stylish(diff_dict: dict, indent_counter: int = 0) -> str:
     """Make default differences report."""
     indent = '    ' * indent_counter
-    diff_string = '{'
     if not diff_dict:
-        return diff_string + '\n{i}{v}'.format(i=indent, v='}')
+        return '{s}\n{i}{v}'.format(s='{', i=indent, v='}')
+    diff_list = ['{']
     for key in sorted(diff_dict.keys()):
         difference = diff_dict[key]
         if isinstance(difference, dict):
-            first_diff, second_diff, sign = get_differences(difference)
-            diff_string += make_diff_string(
+            first_diff, second_diff, diff_kind = get_differences(difference)
+            diff_list.append(make_diff_string(
                 indent,
-                sign,
+                '  {s}'.format(s=get_sign(diff_kind)),
                 key,
                 get_diff_value(first_diff, indent_counter),
+            ),
             )
-            if second_diff is not None:
-                diff_string += make_diff_string(
+            if diff_kind == 'updated':
+                diff_list.append(make_diff_string(
                     indent,
                     '  + ',
                     key,
                     get_diff_value(second_diff, indent_counter),
+                ),
                 )
         else:
-            diff_string += make_diff_string(indent, '    ', key, difference)
-    diff_string += '\n{i}{v}'.format(i=indent, v='}')
-    return diff_string
+            diff_list.append(make_diff_string(indent, '    ', key, difference))
+    diff_list.append('\n{i}{v}'.format(i=indent, v='}'))
+    return ''.join(diff_list)
