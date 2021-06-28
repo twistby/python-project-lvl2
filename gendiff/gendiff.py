@@ -20,7 +20,9 @@ def generate_diff(
         return plain(differences)
     elif formater_string == 'json':
         return jsonlish(differences)
-    return stylish(differences)
+    elif formater_string == 'stylish':
+        return stylish(differences)
+    raise ValueError('Incorrect format: '.join(formater_string))
 
 
 def main():

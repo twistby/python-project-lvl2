@@ -29,9 +29,8 @@ def find_diff(first_data: dict, second_data: dict) -> dict:
     """Create dict with differences between two dictionaries."""
     first_dict_keys = set(first_data)
     second_dict_keys = set(second_data)
-    key_list = list(first_dict_keys.union(second_dict_keys))
     differences = {}
-    for dict_key in key_list:
+    for dict_key in first_dict_keys.union(second_dict_keys):
         first_value = first_data.get(dict_key)
         second_value = second_data.get(dict_key)
         if first_value == second_value:
@@ -49,7 +48,7 @@ def find_diff(first_data: dict, second_data: dict) -> dict:
             difference = pack_diff_to_dict(
                 'updated',
                 first_value,
-                none_to_null(second_value),
+                second_value,
             )
         differences[dict_key] = difference
     return differences
