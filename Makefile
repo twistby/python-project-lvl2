@@ -15,12 +15,10 @@ package-install:
 
 lint:
 	poetry run flake8 gendiff
+	poetry run mypy gendiff
 
 pytest:
 	poetry run pytest -vv
 
 cover:
 	poetry run pytest --cov=gendiff tests/ --cov-report xml
-
-mypy:
-	poetry run mypy gendiff

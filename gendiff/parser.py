@@ -12,6 +12,7 @@ def make_parser(first_formater, second_formater, third_formater):
         '--format',
         help='set format of output',
         choices=[first_formater, second_formater, third_formater],
+        default=first_formater,
     )
     return parser
 

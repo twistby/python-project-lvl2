@@ -24,8 +24,6 @@ jobs:
           make install
       - name:  WPS linter check 
         run: make lint 
-      - name:  mypy check
-        run: make mypy
       - name: test and publish code coverage
         uses: paambaati/codeclimate-action@v2.7.5
         env:
