@@ -4,7 +4,7 @@ import os
 
 import pytest
 
-from gendiff.gendiff import generate_diff
+from gendiff.scripts.gendiff import generate_diff
 
 
 def get_path(file_name: str) -> str:
