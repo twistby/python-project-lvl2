@@ -24,8 +24,6 @@ jobs:
           make install
       - name:  WPS linter check 
         run: make lint 
-      - name:  pytest check
-        run: make pytest
       - name:  mypy check
         run: make mypy
       - name: test and publish code coverage
