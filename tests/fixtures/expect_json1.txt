@@ -1,0 +1,7 @@
+{
+  - color: Red
+    fruit: Apple
+  - size: Large
+  + size: Medium
+  + teste: Good
+}

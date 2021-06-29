@@ -9,11 +9,3 @@ Property 'group1.baz' was updated. From 'bas' to 'bars'
 Property 'group1.nest' was updated. From [complex value] to 'str'
 Property 'group2' was removed
 Property 'group3' was added with value: [complex value]
-
-
-Property 'diff_kind' was updated. From 0 to 120
-Property 'param1.first_value.first_value' was removed
-Property 'param1.first_value.third_value' was added with value: '335af0bd-b995-4e42-b12d-5dd3a24c4cb8'
-Property 'param1.first_value.token' was updated. From '2015-02-21T01:00:36 -01:00' to '2015-02-21T01:00:34 -01:00'
-Property 'tocken' was added with value: '60d210e03de07a32fa8d62ee'
-Property 'token' was removed

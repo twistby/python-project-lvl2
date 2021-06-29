@@ -20,49 +20,29 @@ def read(file_path: str) -> str:
     return f_result
 
 
-# expected data
-json_data = read(get_path('expect_json.txt')).rstrip().split('\n\n\n')
-yaml_data = read(get_path('expect_yaml.txt')).rstrip().split('\n\n\n')
-json_data_default = read(get_path('expect_json_default.txt')).rstrip().split(
-    '\n\n\n',
-)
-json_data_plain = read(get_path('expect_plain.txt')).rstrip().split('\n\n\n')
-json_data_jsonlish = read(get_path('expect_jsonlish.txt')).rstrip().split(
-    '\n\n\n',
-)
-
-cases_json = list(range(3))
-cases_yaml = list(range(3))
-cases_plain = list(range(2))
-cases_jsonlish = list(range(1))
+cases = list(range(3))
 
 
-@pytest.mark.parametrize('case_index', cases_json)
-def test_generate_diff_json_yaml(case_index: int) -> None:
-    """Test generate_diff function with json files."""
+@pytest.mark.parametrize('case_index', cases)
+def test_generate_diff(case_index: int) -> None:
+    """Test generate_diff function."""
     f1 = get_path('test{cs}file1.json'.format(cs=case_index))
     f2 = get_path('test{cs}file2.json'.format(cs=case_index))
-    expected = json_data[case_index]
+    expected = read(get_path('expect_json{cs}.txt'.format(cs=case_index)))
     assert generate_diff(f1, f2) == expected
     f1 = get_path('test{cs}file1.yml'.format(cs=case_index))
     f2 = get_path('test{cs}file2.yml'.format(cs=case_index))
-    expected = yaml_data[case_index]
+    expected = read(get_path('expect_yaml{cs}.txt'.format(cs=case_index)))
     assert generate_diff(f1, f2) == expected
-
-
-@pytest.mark.parametrize('case_index', cases_plain)
-def test_generate_diff_plain(case_index: int) -> None:
-    """Test generate_diff function with plain template."""
-    f1 = get_path('testplain{cs}file1.json'.format(cs=case_index))
-    f2 = get_path('testplain{cs}file2.json'.format(cs=case_index))
-    expected = json_data_plain[case_index]
-    assert generate_diff(f1, f2, 'plain') == expected
-
-
-@pytest.mark.parametrize('case_index', cases_jsonlish)
-def test_generate_diff_jsonlish(case_index: int) -> None:
-    """Test generate_diff function with jsonlish template."""
-    f1 = get_path('testjsonlish{cs}file1.json'.format(cs=case_index))
-    f2 = get_path('testjsonlish{cs}file2.json'.format(cs=case_index))
-    expected = json.loads(json_data_jsonlish[0])
-    assert json.loads(generate_diff(f1, f2, 'json')) == expected
+    if case_index < 2:
+        f1 = get_path('testplain{cs}file1.json'.format(cs=case_index))
+        f2 = get_path('testplain{cs}file2.json'.format(cs=case_index))
+        expected = read(get_path('expect_plain{cs}.txt'.format(cs=case_index)))
+        assert generate_diff(f1, f2, 'plain') == expected
+    if case_index == 0:
+        f1 = get_path('testjsonlish{cs}file1.json'.format(cs=case_index))
+        f2 = get_path('testjsonlish{cs}file2.json'.format(cs=case_index))
+        expected = json.loads(
+            read(get_path('expect_jsonlish{cs}.txt'.format(cs=case_index))),
+        )
+        assert json.loads(generate_diff(f1, f2, 'json')) == expected

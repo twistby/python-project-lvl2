@@ -1,20 +1,4 @@
 {
-}
-
-
-{
-    choose: 1
-    government: give
-  - military: false
-  + military: true
-  - piano: false
-  + piano: true
-    snow: arrow
-    voice: try
-}
-
-
-{
     cream: three
     forest: 924621322.2566912
     poem: {
