@@ -83,6 +83,6 @@ def to_plain(diff: dict, parent: str = '') -> str:
     return ''.join(diff_strings)
 
 
-def plain(diff: Any) -> str:
+def plain(diff: dict) -> str:
     """Make report and cut off last line break."""
     return to_plain(diff).rstrip('\n')

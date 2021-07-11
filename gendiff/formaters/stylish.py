@@ -50,12 +50,12 @@ def stylish(diff: dict, depth: int = 0) -> str:
     indent = '    ' * depth
     if not diff:
         return '{s}\n{i}{v}'.format(s='{', i=indent, v='}')
-    diff_strings = ['{']
+    formated_diff = ['{']
     for key in sorted(diff.keys()):
         diff_node = diff[key]
         if isinstance(diff_node, dict):
             first_diff, second_diff, diff_kind = get_diff_data(diff_node)
-            diff_strings.append(format_diff(
+            formated_diff.append(format_diff(
                 indent,
                 '  {s}'.format(s=signs[diff_kind]),
                 key,
@@ -63,7 +63,7 @@ def stylish(diff: dict, depth: int = 0) -> str:
             ),
             )
             if diff_kind == DIFF_KINDS[3]:
-                diff_strings.append(format_diff(
+                formated_diff.append(format_diff(
                     indent,
                     '  {s}'.format(s=signs[DIFF_KINDS[1]]),
                     key,
@@ -71,7 +71,7 @@ def stylish(diff: dict, depth: int = 0) -> str:
                 ),
                 )
         else:
-            diff_strings.append(
+            formated_diff.append(
                 format_diff(
                     indent,
                     '  {s}'.format(s=signs[DIFF_KINDS[0]]),
@@ -79,5 +79,5 @@ def stylish(diff: dict, depth: int = 0) -> str:
                     diff_node,
                 ),
             )
-    diff_strings.append('\n{i}{v}'.format(i=indent, v='}'))
-    return ''.join(diff_strings)
+    formated_diff.append('\n{i}{v}'.format(i=indent, v='}'))
+    return ''.join(formated_diff)
