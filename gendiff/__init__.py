@@ -1,4 +1,4 @@
 """Gendiff project."""
-from gendiff.scripts.gendiff import generate_diff
+from gendiff.diff_generator import generate_diff
 
 __all__ = ('generate_diff')

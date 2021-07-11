@@ -1,15 +1,16 @@
 """Find differencies."""
 from typing import Any
 
+from gendiff.constants import DIFF_KINDS
 
-def pack_diff_to_dict(
+
+def get_diff_node(
     diff_kind: str,
     first_value: Any,
     second_value: Any = None,
 ) -> dict:
     """Packs the difference in the dictionary."""
     return {
-        'is_differense': True,
         'diff_kind': diff_kind,
         'first_value': first_value,
         'second_value': second_value,
@@ -20,26 +21,26 @@ def find_diff(first_data: dict, second_data: dict) -> dict:
     """Create dict with differences between two dictionaries."""
     first_dict_keys = set(first_data)
     second_dict_keys = set(second_data)
-    differences = {}
+    diff = {}
     for dict_key in first_dict_keys.union(second_dict_keys):
         first_value = first_data.get(dict_key)
         second_value = second_data.get(dict_key)
         if first_value == second_value:
-            difference = pack_diff_to_dict('unchanged', first_value)
+            diff_node = get_diff_node(DIFF_KINDS[0], first_value)
         elif dict_key not in first_dict_keys:
-            difference = pack_diff_to_dict('added', second_value)
+            diff_node = get_diff_node(DIFF_KINDS[1], second_value)
         elif dict_key not in second_dict_keys:
-            difference = pack_diff_to_dict('removed', first_value)
+            diff_node = get_diff_node(DIFF_KINDS[2], first_value)
         elif isinstance(first_value, dict) and isinstance(second_value, dict):
-            difference = pack_diff_to_dict(
-                'unchanged',
+            diff_node = get_diff_node(
+                DIFF_KINDS[0],
                 find_diff(first_value, second_value),
             )
         else:
-            difference = pack_diff_to_dict(
-                'updated',
+            diff_node = get_diff_node(
+                DIFF_KINDS[3],
                 first_value,
                 second_value,
             )
-        differences[dict_key] = difference
-    return differences
+        diff[dict_key] = diff_node
+    return diff
