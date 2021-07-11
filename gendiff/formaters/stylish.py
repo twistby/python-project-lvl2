@@ -38,11 +38,11 @@ def get_value(difference: Any, depth: int) -> str:
     return format_value(str(difference))
 
 
-def get_diff_data(diff: dict) -> Tuple[Any, Any, str]:
+def get_diff_data(node: dict) -> Tuple[Any, Any, str]:
     """Return values depending on whether it is a dict of differences or not."""
-    if diff.get('diff_kind'):
-        return diff['first_value'], diff['second_value'], diff['diff_kind']
-    return diff, None, DIFF_KINDS[0]
+    if node.get('diff_kind'):
+        return node['first_value'], node['second_value'], node['diff_kind']
+    return node, None, DIFF_KINDS[0]
 
 
 def stylish(diff: dict, depth: int = 0) -> str:

@@ -41,9 +41,9 @@ def format_diff(
     return {'diffKind': DIFF_KINDS[3], 'from': first_value, 'to': second_value}
 
 
-def get_diff_data(diff: dict) -> Tuple[Any, Any, str]:
+def get_diff_data(node: dict) -> Tuple[Any, Any, str]:
     """Return values  of diff."""
-    return diff['first_value'], diff['second_value'], diff['diff_kind']
+    return node['first_value'], node['second_value'], node['diff_kind']
 
 
 def to_json(diff: dict) -> dict:
