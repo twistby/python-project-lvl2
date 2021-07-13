@@ -4,7 +4,8 @@ import pathlib
 
 import yaml
 
-from gendiff.constants import JSON_SUFIX, YAML_SUFIXES
+JSON_SUFIX = '.json'
+YAML_SUFIXES = ('.yml', '.yaml')
 
 
 def read_file(file_path: str) -> dict:

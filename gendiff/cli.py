@@ -2,7 +2,7 @@
 import argparse
 
 
-def make_parser(formaters: list):
+def make_parser(formaters: list, default_formater: str):
     """Make argparse parser."""
     parser = argparse.ArgumentParser(description='Generate diff')
     parser.add_argument('first_file')
@@ -12,12 +12,12 @@ def make_parser(formaters: list):
         '--format',
         help='set format of output',
         choices=formaters,
-        default=formaters[0],
+        default=default_formater,
     )
     return parser
 
 
-def get_args(formaters: list):
+def get_args(formaters: list, default_formater: str):
     """Return arguments."""
-    parser = make_parser(formaters)
+    parser = make_parser(formaters, default_formater)
     return parser.parse_args()

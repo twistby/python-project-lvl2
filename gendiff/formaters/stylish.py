@@ -1,83 +1,85 @@
 """Default differences report template."""
-from typing import Any, Tuple
+from typing import Any
 
-from gendiff.constants import DIFF_KINDS
+from gendiff.diff_finder import ADDED, NESTED, REMOVED, UNCHANGED, UPDATED
 
 signs = {
-    DIFF_KINDS[0]: '  ',
-    DIFF_KINDS[1]: '+ ',
-    DIFF_KINDS[2]: '- ',
-    DIFF_KINDS[3]: '- ',
+    UNCHANGED: '  ',
+    ADDED: '+ ',
+    REMOVED: '- ',
+    UPDATED: '- ',
 }
+IDENT_STRING = '    '
+DIFF_KIND_STRING = '  {s}'
+LF_STRING = '\n'
 
 
-def format_value(string: str) -> str:
+def compile_diff(dif_value, depth):
+    """Make formated diff from list."""
+    return '{{{v}{e}{i}}}'.format(
+        v=''.join(dif_value),
+        e=LF_STRING,
+        i=IDENT_STRING * depth,
+    )
+
+
+def format_value(some_value: Any, depth: int) -> str:
     """Format boolen to lowercase, None to null, remove control charachters."""
-    string = string.rstrip('\n').rstrip('\r')
-    if string in {'False', 'True'}:
-        string = string.lower()
-    if string == 'None':
-        string = 'null'
-    return string
+    if isinstance(some_value, dict):
+        formated_value = []
+        for dict_key, dict_value in some_value:
+            formated_value.append(format_diff(
+                depth,
+                UNCHANGED,
+                dict_key,
+                format_value(dict_value, depth + 1),
+            ),
+            )
+        return compile_diff(formated_value, depth)
+    if some_value in {False, True}:
+        return str(some_value).lower()
+    if some_value is None:
+        return 'null'
+    return str(some_value).rstrip('\n').rstrip('\r')
 
 
-def format_diff(ident: str, sign: str, key: str, diff_value: str) -> str:
+def format_diff(depth: int, diff_kind: str, key: str, diff_value: str) -> str:
     """Make formatted difference string."""
-    return '\n{i}{s}{k}: {v}'.format(
-        i=ident,
-        s=sign,
+    return '{i}{s}{k}: {v}'.format(
+        i='{l}{i}'.format(l=LF_STRING, i=IDENT_STRING * depth),
+        s=DIFF_KIND_STRING.format(s=signs[diff_kind]),
         k=key,
         v=diff_value,
     )
 
 
-def get_value(difference: Any, depth: int) -> str:
-    """Get difference value from dict."""
-    if isinstance(difference, dict):
-        return stylish(difference, depth + 1)
-    return format_value(str(difference))
-
-
-def get_diff_data(node: dict) -> Tuple[Any, Any, str]:
-    """Return values depending on whether it is a dict of differences or not."""
-    if node.get('diff_kind'):
-        return node['first_value'], node['second_value'], node['diff_kind']
-    return node, None, DIFF_KINDS[0]
-
-
 def stylish(diff: dict, depth: int = 0) -> str:
     """Make default differences report."""
-    indent = '    ' * depth
-    if not diff:
-        return '{s}\n{i}{v}'.format(s='{', i=indent, v='}')
-    formated_diff = ['{']
+    formated_diff = []
     for key in sorted(diff.keys()):
-        diff_node = diff[key]
-        if isinstance(diff_node, dict):
-            first_diff, second_diff, diff_kind = get_diff_data(diff_node)
+        first_diff, second_diff, diff_kind = diff[key]
+        if diff_kind == NESTED:
             formated_diff.append(format_diff(
-                indent,
-                '  {s}'.format(s=signs[diff_kind]),
+                depth,
+                UNCHANGED,
                 key,
-                get_value(first_diff, depth),
+                stylish(first_diff, depth + 1),
             ),
             )
-            if diff_kind == DIFF_KINDS[3]:
+        else:
+            formated_diff.append(format_diff(
+                depth,
+                diff_kind,
+                key,
+                format_value(first_diff, depth),
+            ),
+            )
+            if diff_kind == UPDATED:
                 formated_diff.append(format_diff(
-                    indent,
-                    '  {s}'.format(s=signs[DIFF_KINDS[1]]),
+                    depth,
+                    ADDED,
                     key,
-                    get_value(second_diff, depth),
+                    format_value(second_diff, depth),
                 ),
                 )
-        else:
-            formated_diff.append(
-                format_diff(
-                    indent,
-                    '  {s}'.format(s=signs[DIFF_KINDS[0]]),
-                    key,
-                    diff_node,
-                ),
-            )
-    formated_diff.append('\n{i}{v}'.format(i=indent, v='}'))
-    return ''.join(formated_diff)
+    return compile_diff(formated_diff, depth)

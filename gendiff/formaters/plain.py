@@ -1,7 +1,7 @@
 """Plain formater."""
-from typing import Any, Tuple
+from typing import Any
 
-from gendiff.constants import DIFF_KINDS
+from gendiff.diff_finder import ADDED, NESTED, REMOVED, UNCHANGED, UPDATED
 
 
 def iscomplex(some_value: Any) -> bool:
@@ -35,13 +35,13 @@ def format_diff(
     second_value: Any = '',
 ) -> str:
     """Make formatted difference string."""
-    if diff_kind == DIFF_KINDS[0]:
+    if diff_kind == UNCHANGED:
         return ''
-    if diff_kind == DIFF_KINDS[1]:
+    if diff_kind == ADDED:
         tail = 'was added with value: {v}'.format(v=first_value)
-    elif diff_kind == DIFF_KINDS[2]:
+    elif diff_kind == REMOVED:
         tail = 'was removed'
-    elif diff_kind == DIFF_KINDS[3]:
+    elif diff_kind == UPDATED:
         tail = 'was updated. From {f} to {t}'.format(
             f=first_value,
             t=second_value,
@@ -49,29 +49,14 @@ def format_diff(
     return "Property '{c}' {t}\n".format(c=child, t=tail)
 
 
-def get_diff_data(node: dict) -> Tuple[Any, Any, str]:
-    """Return values of diff."""
-    return node['first_value'], node['second_value'], node['diff_kind']
-
-
 def to_plain(diff: dict, parent: str = '') -> str:
     """Make plain report."""
     diff_strings = []
     for key in sorted(diff.keys()):
         current_parent = '{p}.{c}'.format(p=parent, c=key) if parent else key
-        diff_node = diff[key]
-        first_diff, second_diff, diff_kind = get_diff_data(diff_node)
-        if diff_kind == DIFF_KINDS[0]:
-            if isinstance(first_diff, dict):
-                diff_strings.append(to_plain(first_diff, current_parent))
-            else:
-                diff_strings.append(format_diff(
-                    current_parent,
-                    diff_kind,
-                    format_value(first_diff),
-                    format_value(second_diff),
-                ),
-                )
+        first_diff, second_diff, diff_kind = diff[key]
+        if diff_kind == NESTED:
+            diff_strings.append(to_plain(first_diff, current_parent))
         else:
             diff_strings.append(format_diff(
                 current_parent,

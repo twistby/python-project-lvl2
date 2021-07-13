@@ -1,20 +1,24 @@
 """Find differencies."""
-from typing import Any
+from typing import Any, Tuple
 
-from gendiff.constants import DIFF_KINDS
+ADDED = 'added'
+REMOVED = 'removed'
+NESTED = 'nested'
+UNCHANGED = 'unchanged'
+UPDATED = 'updated'
 
 
 def get_diff_node(
     diff_kind: str,
     first_value: Any,
     second_value: Any = None,
-) -> dict:
+) -> Tuple:
     """Packs the difference in the dictionary."""
-    return {
-        'diff_kind': diff_kind,
-        'first_value': first_value,
-        'second_value': second_value,
-    }
+    return (
+        first_value,
+        second_value,
+        diff_kind,
+    )
 
 
 def find_diff(first_data: dict, second_data: dict) -> dict:
@@ -26,19 +30,19 @@ def find_diff(first_data: dict, second_data: dict) -> dict:
         first_value = first_data.get(dict_key)
         second_value = second_data.get(dict_key)
         if first_value == second_value:
-            diff_node = get_diff_node(DIFF_KINDS[0], first_value)
+            diff_node = get_diff_node(UNCHANGED, first_value)
         elif dict_key not in first_dict_keys:
-            diff_node = get_diff_node(DIFF_KINDS[1], second_value)
+            diff_node = get_diff_node(ADDED, second_value)
         elif dict_key not in second_dict_keys:
-            diff_node = get_diff_node(DIFF_KINDS[2], first_value)
+            diff_node = get_diff_node(REMOVED, first_value)
         elif isinstance(first_value, dict) and isinstance(second_value, dict):
             diff_node = get_diff_node(
-                DIFF_KINDS[0],
+                NESTED,
                 find_diff(first_value, second_value),
             )
         else:
             diff_node = get_diff_node(
-                DIFF_KINDS[3],
+                UPDATED,
                 first_value,
                 second_value,
             )

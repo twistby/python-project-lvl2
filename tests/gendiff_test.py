@@ -84,3 +84,7 @@ def test_generate_diff(case_index: int) -> None:
         )
     else:
         assert generate_diff(f1, f2, formater) == expected
+
+
+if __name__ == '__main__':
+    test_generate_diff(5)

@@ -1,8 +1,8 @@
 """JSON formater."""
 import json
-from typing import Any, Tuple
+from typing import Any
 
-from gendiff.constants import DIFF_KINDS
+from gendiff.diff_finder import ADDED, NESTED, REMOVED, UNCHANGED, UPDATED
 
 
 def iscomplex(some_value: Any) -> bool:
@@ -32,35 +32,22 @@ def format_diff(
     second_value: Any = '',
 ) -> dict:
     """Make diff dict."""
-    if diff_kind == DIFF_KINDS[0]:
-        return {'diffKind': DIFF_KINDS[0], 'value': first_value}
-    if diff_kind == DIFF_KINDS[1]:
-        return {'diffKind': DIFF_KINDS[1], 'value': first_value}
-    elif diff_kind == DIFF_KINDS[2]:
-        return {'diffKind': DIFF_KINDS[2]}
-    return {'diffKind': DIFF_KINDS[3], 'from': first_value, 'to': second_value}
-
-
-def get_diff_data(node: dict) -> Tuple[Any, Any, str]:
-    """Return values  of diff."""
-    return node['first_value'], node['second_value'], node['diff_kind']
+    if diff_kind == UNCHANGED:
+        return {'diffKind': UNCHANGED, 'value': first_value}
+    if diff_kind == ADDED:
+        return {'diffKind': ADDED, 'value': first_value}
+    elif diff_kind == REMOVED:
+        return {'diffKind': REMOVED}
+    return {'diffKind': UPDATED, 'from': first_value, 'to': second_value}
 
 
 def to_json(diff: dict) -> dict:
     """Prepare diff dict for transformation to JSON."""
     result_dict = {}
     for key in sorted(diff.keys()):
-        diff_node = diff[key]
-        first_diff, second_diff, diff_kind = get_diff_data(diff_node)
-        if diff_kind == DIFF_KINDS[0]:
-            if isinstance(first_diff, dict):
-                result_dict[key] = to_json(first_diff)
-            else:
-                result_dict[key] = format_diff(
-                    diff_kind,
-                    format_value(first_diff),
-                    format_value(second_diff),
-                )
+        first_diff, second_diff, diff_kind = diff[key]
+        if diff_kind == NESTED:
+            result_dict[key] = to_json(first_diff)
         else:
             result_dict[key] = format_diff(
                 diff_kind,

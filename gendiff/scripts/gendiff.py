@@ -1,12 +1,11 @@
 """Gendiff script."""
 from gendiff.cli import get_args
-from gendiff.constants import FORMATERS
-from gendiff.diff_generator import generate_diff
+from gendiff.diff_generator import DEFAULT_FORMATER, formaters, generate_diff
 
 
 def main():
     """Run main function."""
-    args = get_args(list(FORMATERS))
+    args = get_args(formaters, DEFAULT_FORMATER)
     print(generate_diff(args.first_file, args.second_file, args.format))
 
 
