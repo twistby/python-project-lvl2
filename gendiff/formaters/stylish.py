@@ -27,7 +27,7 @@ def format_value(some_value: Any, depth: int) -> str:
     """Format boolen to lowercase, None to null, remove control charachters."""
     if isinstance(some_value, dict):
         formated_value = []
-        for dict_key, dict_value in some_value:
+        for dict_key, dict_value in some_value.items():
             formated_value.append(format_diff(
                 depth,
                 UNCHANGED,
