@@ -30,6 +30,7 @@ first_files = [
     'testplain0file1.json',
     'testplain1file1.json',
     'testjsonlish0file1.json',
+    'testhexletfile1.json',
 ]
 
 second_files = [
@@ -42,6 +43,7 @@ second_files = [
     'testplain0file2.json',
     'testplain1file2.json',
     'testjsonlish0file2.json',
+    'testhexletfile2.json',
 ]
 
 expected_files = [
@@ -54,6 +56,7 @@ expected_files = [
     'expect_plain0.txt',
     'expect_plain1.txt',
     'expect_jsonlish0.txt',
+    'expect_hexlet.txt',
 ]
 
 formaters = [
@@ -66,6 +69,7 @@ formaters = [
     'plain',
     'plain',
     'json',
+    'stylish',
 ]
 
 cases = list(range(9))
@@ -87,4 +91,4 @@ def test_generate_diff(case_index: int) -> None:
 
 
 if __name__ == '__main__':
-    test_generate_diff(5)
+    test_generate_diff(9)

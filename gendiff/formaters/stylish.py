@@ -32,7 +32,7 @@ def format_value(some_value: Any, depth: int) -> str:
                 depth,
                 UNCHANGED,
                 dict_key,
-                format_value(dict_value, depth + 1),
+                format_value(dict_value, depth),
             ),
             )
         return compile_diff(formated_value, depth)
