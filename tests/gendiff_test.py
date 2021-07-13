@@ -72,7 +72,7 @@ formaters = [
     'stylish',
 ]
 
-cases = list(range(9))
+cases = list(range(10))
 
 
 @pytest.mark.parametrize('case_index', cases)
@@ -88,7 +88,3 @@ def test_generate_diff(case_index: int) -> None:
         )
     else:
         assert generate_diff(f1, f2, formater) == expected
-
-
-if __name__ == '__main__':
-    test_generate_diff(9)

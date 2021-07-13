@@ -29,13 +29,13 @@ def format_value(some_value: Any, depth: int) -> str:
         formated_value = []
         for dict_key, dict_value in some_value.items():
             formated_value.append(format_diff(
-                depth,
+                depth + 1,
                 UNCHANGED,
                 dict_key,
-                format_value(dict_value, depth),
+                format_value(dict_value, depth + 1),
             ),
             )
-        return compile_diff(formated_value, depth)
+        return compile_diff(formated_value, depth + 1)
     if some_value in {False, True}:
         return str(some_value).lower()
     if some_value is None:
