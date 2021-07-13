@@ -29,7 +29,7 @@ def format_value(some_value: Any) -> Any:
 
 
 def format_diff(
-    child: str,
+    parent: str,
     diff_kind: str,
     first_value: Any,
     second_value: Any = '',
@@ -46,7 +46,7 @@ def format_diff(
             f=first_value,
             t=second_value,
         )
-    return "Property '{c}' {t}\n".format(c=child, t=tail)
+    return "Property '{c}' {t}\n".format(c=parent, t=tail)
 
 
 def to_plain(diff: dict, parent: str = '') -> str:

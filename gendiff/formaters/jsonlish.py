@@ -5,11 +5,6 @@ from typing import Any
 from gendiff.diff_finder import ADDED, NESTED, REMOVED, UNCHANGED, UPDATED
 
 
-def iscomplex(some_value: Any) -> bool:
-    """Check value is complex."""
-    return isinstance(some_value, (dict, list))
-
-
 def format_value(some_value: Any) -> Any:
     """Format value.
 
