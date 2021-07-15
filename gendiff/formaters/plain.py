@@ -50,6 +50,7 @@ def format_diff(
             f=first_value,
             t=second_value,
         )
+    return ''
 
 
 def to_plain(diff: dict, parent: str = '') -> str:
