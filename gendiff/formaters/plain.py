@@ -38,15 +38,18 @@ def format_diff(
     if diff_kind == UNCHANGED:
         return ''
     if diff_kind == ADDED:
-        tail = 'was added with value: {v}'.format(v=first_value)
+        return "Property '{p}' was added with value: {v}\n".format(
+            p=parent,
+            v=first_value,
+        )
     elif diff_kind == REMOVED:
-        tail = 'was removed'
+        return "Property '{p}' was removed\n".format(p=parent)
     elif diff_kind == UPDATED:
-        tail = 'was updated. From {f} to {t}'.format(
+        return "Property '{p}' was updated. From {f} to {t}\n".format(
+            p=parent,
             f=first_value,
             t=second_value,
         )
-    return "Property '{c}' {t}\n".format(c=parent, t=tail)
 
 
 def to_plain(diff: dict, parent: str = '') -> str:

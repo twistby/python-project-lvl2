@@ -23,19 +23,24 @@ def compile_diff(dif_value, depth):
     )
 
 
+def format_dict_value(some_value: dict, depth: int) -> str:
+    """Format value if value is a dict."""
+    formated_value = []
+    for dict_key, dict_value in some_value.items():
+        formated_value.append(format_diff(
+            depth + 1,
+            UNCHANGED,
+            dict_key,
+            format_value(dict_value, depth + 1),
+        ),
+        )
+    return compile_diff(formated_value, depth + 1)
+
+
 def format_value(some_value: Any, depth: int) -> str:
     """Format boolen to lowercase, None to null, remove control charachters."""
     if isinstance(some_value, dict):
-        formated_value = []
-        for dict_key, dict_value in some_value.items():
-            formated_value.append(format_diff(
-                depth + 1,
-                UNCHANGED,
-                dict_key,
-                format_value(dict_value, depth + 1),
-            ),
-            )
-        return compile_diff(formated_value, depth + 1)
+        return format_dict_value(some_value, depth)
     if some_value in {False, True}:
         return str(some_value).lower()
     if some_value is None:
